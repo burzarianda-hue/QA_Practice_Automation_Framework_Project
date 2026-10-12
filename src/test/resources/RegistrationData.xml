@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSets>
+    <dataSet_1>
+        <email>ari_test@net.com</email>
+        <password>Parola@123#</password>
+        <confirmPassword>Parola@123#</confirmPassword>
+    </dataSet_1>
+</dataSets>

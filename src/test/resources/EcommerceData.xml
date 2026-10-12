@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSets>
+    <dataSet_1>
+        <quantity>2</quantity>
+        <name>Ion Popescu</name>
+        <street>Strada Principala 10</street>
+        <city>Timisoara</city>
+        <state>Timis</state>
+        <zip>300001</zip>
+        <cardNumber>4111111111111111</cardNumber>
+        <expiry>12/30</expiry>
+        <cvv>123</cvv>
+    </dataSet_1>
+</dataSets>

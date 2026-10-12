@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+
+        <!-- Creeaza un fisier log separat pentru fiecare test -->
+        <Routing name="Routing">
+
+            <Routes pattern="$${ctx:threadName}">
+
+                <Route>
+                    <File
+                            name="File-${ctx:threadName}"
+                            fileName="target/logs/suite/${ctx:threadName}.log"
+                            append="false">
+
+                        <PatternLayout
+                                pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+
+                    </File>
+                </Route>
+
+            </Routes>
+        </Routing>
+
+        <!-- Afiseaza mesajele si in consola IntelliJ -->
+        <Console name="ConsoleLogger" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="info">
+            <AppenderRef ref="Routing"/>
+            <AppenderRef ref="ConsoleLogger"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>

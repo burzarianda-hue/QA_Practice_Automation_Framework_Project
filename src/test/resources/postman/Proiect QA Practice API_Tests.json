@@ -1,0 +1,74 @@
+{
+  "info": {
+    "_postman_id": "011ce621-ac2d-427d-a07a-beb15237e748",
+    "name": "Proiect QA Practice API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58606563",
+    "_collection_link": "https://go.postman.co/collection/58606563-011ce621-ac2d-427d-a07a-beb15237e748?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Pet by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://petstore.swagger.io/v2/pet/10",
+          "protocol": "https",
+          "host": [
+            "petstore",
+            "swagger",
+            "io"
+          ],
+          "path": [
+            "v2",
+            "pet",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Pet - POST",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\npm.test(\"Pet name is correct\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.name).to.eql(\"QA Test Dog\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 12345,\r\n  \"name\": \"QA Test Dog\",\r\n  \"photoUrls\": [],\r\n  \"tags\": [],\r\n  \"status\": \"available\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://petstore.swagger.io/v2/pet",
+          "protocol": "https",
+          "host": [
+            "petstore",
+            "swagger",
+            "io"
+          ],
+          "path": [
+            "v2",
+            "pet"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
