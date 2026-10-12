@@ -33,7 +33,7 @@ public class ChromeServiceBrowser implements IBrowserService {
         if (ciCd) {
 
             // Chrome ruleaza fara fereastra vizibila
-            options.addArguments("--headless");
+            options.addArguments("--headless=new");
             options.addArguments("--window-size=1920,1080");
 
         } else {
