@@ -2,9 +2,9 @@ name: Selenium Automation Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,4 @@ jobs:
           cache: maven
 
       - name: Run refactored Selenium tests
-        run: >
-          mvn -B test
-          -Dci_cd=true
-          -Dtest=LoginTest,LoginWrongPassword,RegistrationForm,EcommerceTest,UIElementsTest,XPathPracticeTest*
+        run: mvn -B test -Dci_cd=true -Dsurefire.suiteXmlFiles=src/test/resources/testng-ci.xml
