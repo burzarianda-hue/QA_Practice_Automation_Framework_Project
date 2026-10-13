@@ -22,5 +22,5 @@
             java-version: "21"
             cache: maven
 
-        - name: Run refactored Selenium tests
-          run: mvn -B test -Dci_cd=true -Dsurefire.suiteXmlFiles=src/test/resources/testng-ci.xml
+        - name: Run CI Selenium tests
+          run: mvn -B clean test -Dci_cd=true
