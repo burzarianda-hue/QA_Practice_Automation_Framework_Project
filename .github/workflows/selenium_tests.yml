@@ -1,26 +1,26 @@
-name: Selenium Automation Tests
+  name: Selenium Automation Tests
 
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-  workflow_dispatch:
+  on:
+    push:
+      branches: ["main"]
+    pull_request:
+      branches: ["main"]
+    workflow_dispatch:
 
-jobs:
-  selenium-tests:
-    runs-on: ubuntu-latest
+  jobs:
+    selenium-tests:
+      runs-on: ubuntu-latest
 
-    steps:
-      - name: Download project
-        uses: actions/checkout@v4
+      steps:
+        - name: Download project
+          uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "21"
-          cache: maven
+        - name: Set up Java
+          uses: actions/setup-java@v4
+          with:
+            distribution: temurin
+            java-version: "21"
+            cache: maven
 
-      - name: Run refactored Selenium tests
-        run: mvn -B test -Dci_cd=true -Dsurefire.suiteXmlFiles=src/test/resources/testng-ci.xml
+        - name: Run refactored Selenium tests
+          run: mvn -B test -Dci_cd=true -Dsurefire.suiteXmlFiles=src/test/resources/testng-ci.xml

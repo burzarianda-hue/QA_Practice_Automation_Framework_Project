@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="CI Selenium Suite" parallel="false">
+    <test name="Refactored Tests">
+        <classes>
+            <class name="Tests_Refactorizat.LoginTest"/>
+            <class name="Tests_Refactorizat.LoginWrongPassword"/>
+            <class name="Tests_Refactorizat.RegistrationForm"/>
+            <class name="Tests_Refactorizat.EcommerceTest"/>
+            <class name="Tests_Refactorizat.UIElementsTest"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest1"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest2"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest3"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest4"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest5"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest6"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest7"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest8"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest9"/>
+            <class name="Tests_Refactorizat.XPathPracticeTest10"/>
+        </classes>
+    </test>
+</suite>
