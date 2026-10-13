@@ -1,6 +1,6 @@
 package ObjectData;
 
-// Clasa păstrează datele folosite pentru testul Ecommerce.
+
 public class EcommerceObject {
 
     private String quantity;

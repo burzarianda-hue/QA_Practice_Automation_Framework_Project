@@ -21,29 +21,24 @@ public class ChromeServiceBrowser implements IBrowserService {
 
         ChromeOptions options = new ChromeOptions();
 
-        // Argumente pentru rularea in GitHub Actions
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-
-        // Verificam daca testele ruleaza in CI/CD
         boolean ciCd = Boolean.parseBoolean(
                 System.getProperty("ci_cd", "false")
         );
 
         if (ciCd) {
 
-            // Chrome ruleaza fara fereastra vizibila
             options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--window-size=1920,1080");
 
         } else {
 
-            // Profil local folosit numai in IntelliJ
+            options.addArguments("--start-maximized");
+
             options.addArguments(
                     "--user-data-dir=C:\\SeleniumChromeProfile"
             );
-
-            options.addArguments("--start-maximized");
         }
 
         return options;

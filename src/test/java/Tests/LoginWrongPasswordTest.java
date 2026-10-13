@@ -21,12 +21,11 @@ public class LoginWrongPasswordTest {
         driver.manage().window().maximize();
         driver.get("https://www.qapractice.com/practice-login-form");
 
-        // Creăm obiectul LoginPage.
         LoginPage loginPage = new LoginPage(driver);
 
 
         String email = "user@premiumbank.com";
-        String password = "ParolaGresita1";   // parolă greșită, intenționat
+        String password = "ParolaGresita1";
 
         WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//input[@id='login-email']")));
@@ -38,25 +37,19 @@ public class LoginWrongPasswordTest {
         WebElement signInButton = driver.findElement(By.xpath("//button[@id='login-submit']"));
         js.executeScript("arguments[0].click();", signInButton);
 
-        // Verificare NEGATIVĂ: mesajul de succes NU trebuie să apară.
-        // Așteptăm maxim 3 secunde. Dacă nu apare, apare TimeoutException,
-        // iar noi o prindem cu try/catch și notăm "n-a apărut" (false).
         boolean successAppeared;
         try {
             new WebDriverWait(driver, Duration.ofSeconds(3)).until(
                     ExpectedConditions.visibilityOfElementLocated(
                             By.xpath("//*[@data-testid='login-success']")));
-            successAppeared = true;    // a apărut = login-ul a reușit (greșit!)
+            successAppeared = true;
         } catch (TimeoutException e) {
-            successAppeared = false;   // n-a apărut = corect
+            successAppeared = false;
         }
 
         // Verificăm mesajul afișat pentru parola greșită.
-        Assert.assertEquals(
-                loginPage.getErrorMessage(),
-                "Invalid email id and password"
-        );
-        //driver.quit();
+        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid email id and password");
+
+        driver.quit();
     }
 }
-

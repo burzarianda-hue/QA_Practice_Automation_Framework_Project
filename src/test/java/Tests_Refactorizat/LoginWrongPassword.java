@@ -1,58 +1,69 @@
 package Tests_Refactorizat;
 
-import HelperMethods.ScreenshotMethods;
-import ObjectData.LoginObject;
 import Pages.LoginPage;
 import Shared_Data.Test_Base_Page;
-import XmlReader.XmlDataLoader;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Map;
+import java.time.Duration;
 
 public class LoginWrongPassword extends Test_Base_Page {
 
     @Test
     public void metodaTest() {
 
-        // Citim datele din XML.
-        Map<String, LoginObject> loginObjectMap = XmlDataLoader.loadData("src/test/resources/LoginNegativeData.xml", LoginObject.class);
+        WebDriver driver = getDriver();
 
-        // Preluam datele pentru testul negativ.
-        LoginObject data = loginObjectMap.get("dataSet_1");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        Assert.assertNotNull(data, "Datele pentru Login negativ nu au fost citite din XML!");
+        driver.get("https://www.qapractice.com/practice-login-form");
 
-        // Deschidem pagina de Login.
-        getDriver().get("https://www.qapractice.com/practice-login-form");
+        LoginPage loginPage = new LoginPage(driver);
 
-        // Cream obiectul LoginPage.
-        LoginPage loginPage = new LoginPage(getDriver());
+        String email = "user@premiumbank.com";
+        String password = "ParolaGresita1";
 
-        // Introducem emailul din XML.
-        loginPage.enterEmail(data.getEmail());
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@id='login-email']")));
 
-        Assert.assertEquals(loginPage.getEmailValue(), data.getEmail());
+        emailField.sendKeys(email);
 
-        // Introducem parola gresita din XML.
-        loginPage.enterPassword(data.getPassword());
+        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@id='login-password']")));
 
-        Assert.assertEquals(loginPage.getPasswordValue(), data.getPassword());
+        passwordField.sendKeys(password);
 
-        // Verificam butonul Sign in.
-        Assert.assertTrue(loginPage.isSignInDisplayed());
-        Assert.assertTrue(loginPage.isSignInEnabled());
+        WebElement signInButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@id='login-submit']")));
 
-        // Apasam Sign in.
-        loginPage.clickSignIn();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", signInButton);
 
-        // Verificam mesajul de eroare.
+        boolean successAppeared;
+
+        try {
+            new WebDriverWait(
+                    driver,
+                    Duration.ofSeconds(3)
+            ).until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//*[@data-testid='login-success']")));
+
+            successAppeared = true;
+
+        } catch (TimeoutException e) {
+            successAppeared = false;
+        }
+
+        Assert.assertFalse(successAppeared, "Mesajul de login reușit nu trebuie să apară pentru parola greșită.");
+
         Assert.assertEquals(loginPage.getErrorMessage(), "Invalid email id and password");
-
-
-        // Capturam pagina dupa afisarea mesajului de eroare.
-        ScreenshotMethods.captureScreenshot(getDriver(), "LoginWrongPassword");
     }
-
-
 }

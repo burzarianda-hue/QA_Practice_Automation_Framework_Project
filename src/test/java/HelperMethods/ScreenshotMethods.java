@@ -16,30 +16,30 @@ public class ScreenshotMethods {
     public static void captureScreenshot(
             WebDriver driver, String fileName) {
 
-        // Verificam daca browserul permite capturi de ecran.
+
         if (!(driver instanceof TakesScreenshot)) {
             throw new IllegalArgumentException(
                     "Browserul nu suporta capturi de ecran."
             );
         }
 
-        // Folderul in care salvam imaginile.
+
         Path folderPath = Paths.get("screenshots");
 
         try {
-            // Cream folderul daca nu exista.
+
             Files.createDirectories(folderPath);
 
-            // Capturam imaginea paginii.
+
             File sourceFile =
                     ((TakesScreenshot) driver)
                             .getScreenshotAs(OutputType.FILE);
 
-            // Construim calea fisierului PNG.
+
             Path destinationPath =
                     folderPath.resolve(fileName + ".png");
 
-            // Salvam captura si suprascriem fisierul daca exista.
+
             Files.copy(
                     sourceFile.toPath(),
                     destinationPath,

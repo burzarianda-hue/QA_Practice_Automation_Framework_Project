@@ -17,16 +17,12 @@ public class XPathPracticeTest2 {
     @Test
     public void selectByClassTest() {
 
-        WebDriver driver = new ChromeDriver(); // deschide Chrome
-
-        // asteapta maximum 10 secunde
+        WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // pentru click prin JavaScript
         JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        driver.manage().window().maximize(); // full screen
-        driver.get("https://www.qapractice.com/SeleniumXPathGuide");// Deschidem pagina XPath Guide
+        driver.manage().window().maximize();
+        driver.get("https://www.qapractice.com/SeleniumXPathGuide");
 
         // TEST 2 - SELECT BY CLASS
 
@@ -46,6 +42,6 @@ public class XPathPracticeTest2 {
 
         Assert.assertEquals(progress.getText(), "2");
 
-        //driver.quit();
+        driver.quit();
       }
 }

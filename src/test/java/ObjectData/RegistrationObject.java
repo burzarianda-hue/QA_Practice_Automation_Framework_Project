@@ -1,6 +1,6 @@
 package ObjectData;
 
-// Clasa păstrează datele folosite pentru testul de Registration.
+
 public class RegistrationObject {
 
     private String email;

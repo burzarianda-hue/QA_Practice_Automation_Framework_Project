@@ -24,8 +24,6 @@ public class XPathPracticePage {
         PageFactory.initElements(driver, this);
     }
 
-    // ELEMENTE COMUNE PENTRU EXERCITIILE 1 SI 7
-
     @FindBy(xpath = "//input[contains(@placeholder,'//tag')]")
     WebElement xpathInput;
 
@@ -33,7 +31,6 @@ public class XPathPracticePage {
     WebElement submitButton;
 
     // TEST 1 - SELECT BY ID
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-by-id']")
     WebElement selectByIdButton;
 
@@ -41,20 +38,17 @@ public class XPathPracticePage {
         elementsMethods.clickOnElement(selectByIdButton);
     }
 
-    // Introducem XPath-ul in campul de exercitii
     public void enterXPath(String xpath) {
         wait.until(ExpectedConditions.visibilityOf(xpathInput));
         xpathInput.clear();
         elementsMethods.enterText(xpathInput, xpath);
     }
 
-    // Apasam butonul Submit
     public void clickSubmit() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton));
         elementsMethods.clickOnElement(submitButton);
     }
 
-    // Verificam daca exercitiul a fost rezolvat corect
     public boolean isSuccessMessageDisplayed() {
         try {
             WebElement successMessage = wait.until(
@@ -71,7 +65,6 @@ public class XPathPracticePage {
     }
 
     // TEST 2 - SELECT BY CLASS
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-by-class']")
     WebElement selectByClassButton;
 
@@ -87,7 +80,6 @@ public class XPathPracticePage {
     }
 
     // TEST 3 - SELECT BY EXACT TEXT
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-by-text']")
     WebElement selectByExactTextButton;
 
@@ -103,7 +95,6 @@ public class XPathPracticePage {
     }
 
     // TEST 4 - SELECT BY PLACEHOLDER
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-by-placeholder']")
     WebElement selectByPlaceholderButton;
 
@@ -119,7 +110,6 @@ public class XPathPracticePage {
     }
 
     // TEST 5 - SELECT CHECKBOX
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-checkbox']")
     WebElement selectCheckboxButton;
 
@@ -135,7 +125,6 @@ public class XPathPracticePage {
     }
 
     // TEST 6 - SELECT RADIO BY VALUE
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-radio-value']")
     WebElement selectRadioByValueButton;
 
@@ -153,7 +142,6 @@ public class XPathPracticePage {
     }
 
     // TEST 7 - SELECT AN IMAGE BY ALT TEXT
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-image-alt']")
     WebElement selectImageByAltButton;
 
@@ -163,7 +151,6 @@ public class XPathPracticePage {
     }
 
     // TEST 8 - SELECT A HEADING BY TAG AND TEXT
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-heading-text']")
     WebElement selectHeadingByTextButton;
 
@@ -176,7 +163,6 @@ public class XPathPracticePage {
     }
 
     // TEST 9 - SELECT A LINK BY HREF
-
     @FindBy(xpath = "//button[@data-testid='xp-q-select-link-href']")
     WebElement selectLinkByHrefButton;
 
@@ -189,7 +175,6 @@ public class XPathPracticePage {
     }
 
     // TEST 10 - SELECT AN A BY ITS ID
-
     @FindBy(xpath = "//button[@data-testid='xp-q-g001-id-a']")
     WebElement selectAByIdButton;
 

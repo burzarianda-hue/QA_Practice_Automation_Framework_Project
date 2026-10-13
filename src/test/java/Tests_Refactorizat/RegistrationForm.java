@@ -1,62 +1,70 @@
 package Tests_Refactorizat;
 
-import ObjectData.RegistrationObject;
-import Pages.RegistrationPage;
 import Shared_Data.Test_Base_Page;
-import XmlReader.XmlDataLoader;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Map;
+import java.time.Duration;
 
-// Testul de Registration refactorizat.
 public class RegistrationForm extends Test_Base_Page {
-
-    private Map<String, RegistrationObject> registrationObjectMap;
 
     @Test
     public void metodaTest() {
 
-        // Citim datele din fisierul XML.
-        registrationObjectMap = XmlDataLoader.loadData("src/test/resources/RegistrationData.xml", RegistrationObject.class);
+        WebDriver driver = getDriver();
 
-        // Preluam datele din dataSet_1.
-        RegistrationObject data = registrationObjectMap.get("dataSet_1");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Verificam daca datele au fost citite.
-        Assert.assertNotNull(data, "Datele de Registration nu au fost citite din XML!");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        // Deschidem pagina de Login.
-        getDriver().get("https://www.qapractice.com/practice-login-form");
+        driver.get("https://www.qapractice.com/practice-login-form");
 
-        // Cream obiectul RegistrationPage.
-        RegistrationPage registrationPage =
-                new RegistrationPage(getDriver());
+        String email = "ari_test@net.com";
+        String password = "Parola@123#";
 
-        // Apasam Register now.
-        registrationPage.clickRegisterNow();
+        WebElement registerNow = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[@id='login-register']")));
 
-        // Introducem emailul din XML.
-        registrationPage.enterEmail(data.getEmail());
+        js.executeScript("arguments[0].click();", registerNow);
 
-        // Verificam emailul introdus.
-        Assert.assertEquals(registrationPage.getEmailValue(), data.getEmail());
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@id='register-email']")));
 
-        // Introducem parola din XML.
-        registrationPage.enterPassword(data.getPassword());
+        emailField.sendKeys(email);
 
-        // Confirmam parola folosind datele din XML.
-        registrationPage.enterConfirmPassword(data.getConfirmPassword());
+        Assert.assertEquals(emailField.getAttribute("value"), email);
 
-        // Verificam butonul Register.
-        Assert.assertTrue(registrationPage.isRegisterDisplayed());
-        Assert.assertTrue(registrationPage.isRegisterEnabled());
+        WebElement passwordField = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("(//input[@type='password'])[1]")));
 
-        // Apasam butonul Register.
-        registrationPage.clickRegister();
+        passwordField.sendKeys(password);
 
-        // Verificam mesajul de succes.
-        Assert.assertEquals(registrationPage.getSuccessMessage(), "Registration Successful");
+        WebElement confirmPasswordField = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("(//input[@type='password'])[2]")));
+
+        confirmPasswordField.sendKeys(password);
+
+        WebElement registerButton = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[@id='register-submit']")));
+
+        Assert.assertTrue(registerButton.isDisplayed());
+        Assert.assertTrue(registerButton.isEnabled());
+
+        js.executeScript("arguments[0].click();", registerButton);
+
+        WebElement successMessage = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//*[@data-testid='register-success']")));
+
+        Assert.assertEquals(successMessage.getText(), "Registration Successful");
     }
-
 }

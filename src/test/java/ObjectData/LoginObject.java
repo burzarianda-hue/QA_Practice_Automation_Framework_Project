@@ -1,6 +1,6 @@
 package ObjectData;
 
-// Clasa păstrează datele folosite pentru testele de Login.
+
 public class LoginObject {
 
     private String email;

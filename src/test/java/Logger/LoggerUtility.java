@@ -18,31 +18,31 @@ public class LoggerUtility {
     private static final Logger logger =
             LogManager.getLogger(LoggerUtility.class);
 
-    // Incepe logarea unui test
+
     public static synchronized void startTestCase(String testName) {
         ThreadContext.put("threadName", testName);
         logger.info("===== Execution started: {} =====", testName);
     }
 
-    // Incheie logarea unui test
+
     public static synchronized void endTestCase(String testName) {
         logger.info("===== Execution ended: {} =====", testName);
         ThreadContext.clearMap();
     }
 
-    // Inregistreaza un mesaj informativ
+
     public static synchronized void infoTestCase(String messageName) {
         logger.info("{} {} {}", Thread.currentThread().getName(),
                 getCallInfo(), messageName);
     }
 
-    // Inregistreaza un mesaj de eroare
+
     public static synchronized void errorLog(String message) {
         logger.error("{} {} {}", Thread.currentThread().getName(),
                 getCallInfo(), message);
     }
 
-    // Identifica clasa si metoda care au apelat loggerul
+
     public static synchronized String getCallInfo() {
         StackTraceElement[] stackTrace =
                 Thread.currentThread().getStackTrace();
@@ -61,7 +61,7 @@ public class LoggerUtility {
         return "Unknown class : Unknown method =>";
     }
 
-    // Uneste logurile individuale intr-un singur fisier
+
     public static void mergeFiles() {
         File dir = new File(suiteLogsPath);
 

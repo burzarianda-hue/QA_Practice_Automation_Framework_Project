@@ -1,6 +1,5 @@
 package HelperMethods;
 
-// Importuri Selenium folosite pentru metodele de interacțiune cu elementele.
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -15,22 +14,15 @@ import java.time.Duration;
 import java.util.List;
 
 
-// Această clasă conține metode reutilizabile pentru elementele de pe pagină.
-// Scopul este să nu repetăm același cod în fiecare Page.
 public class ElementsMethods {
 
-    // Driver-ul controlează browserul.
     WebDriver driver;
 
-
-    // Constructorul primește driver-ul din test/page.
     public ElementsMethods(WebDriver driver) {
+
         this.driver = driver;
     }
 
-
-    // Așteaptă ca elementul să devină vizibil.
-    // Folosim un wait de maximum 5 secunde.
     private void waitVisibility(WebElement element) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -38,8 +30,6 @@ public class ElementsMethods {
     }
 
 
-    // Metodă reutilizabilă pentru click.
-    // JavaScript este folosit pentru a aduce elementul în zona vizibilă.
     public void clickOnElement(WebElement element) {
 
         ((JavascriptExecutor) driver).executeScript(
@@ -54,7 +44,6 @@ public class ElementsMethods {
     }
 
 
-    // Selectează un element dintr-o listă după text.
     public void selectElementFromListByText(List<WebElement> listWebElement, String text) {
 
         for (int i = 0; i < listWebElement.size(); i++) {

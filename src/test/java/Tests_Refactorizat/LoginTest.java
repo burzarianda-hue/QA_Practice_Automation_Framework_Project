@@ -1,57 +1,56 @@
 package Tests_Refactorizat;
 
-import ObjectData.LoginObject;
-import Pages.LoginPage;
 import Shared_Data.Test_Base_Page;
-import XmlReader.XmlDataLoader;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Map;
+import java.time.Duration;
 
-// Clasa conține testul de Login refactorizat.
 public class LoginTest extends Test_Base_Page {
-    private Map<String, LoginObject> loginObjectMap;
 
     @Test
     public void metodaTest() {
 
-        // Citim datele de test din fisierul XML.
-        loginObjectMap = XmlDataLoader.loadData("src/test/resources/LoginData.xml", LoginObject.class);
-        LoginObject data = loginObjectMap.get("dataSet_1");  // Preluam datele din setul dataSet_1.
+        WebDriver driver = getDriver();
 
-        // Verificam daca datele au fost citite.
-        Assert.assertNotNull(data, "Datele de Login nu au fost citite din XML!");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Deschidem pagina de Login.
-        getDriver().get("https://www.qapractice.com/practice-login-form");
+        driver.get("https://www.qapractice.com/practice-login-form");
 
-        // Cream obiectul LoginPage.
-        LoginPage loginPage = new LoginPage(getDriver());
+        String email = "user@premiumbank.com";
+        String password = "Bank@123";
 
-        // Introducem emailul citit din XML.
-        loginPage.enterEmail(data.getEmail());
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='login-email']")));
 
-        // Verificam emailul introdus.
-        Assert.assertEquals(loginPage.getEmailValue(), data.getEmail());
+        emailField.sendKeys(email);
 
-        // Introducem parola citita din XML.
-        loginPage.enterPassword(data.getPassword());
+        Assert.assertEquals(emailField.getAttribute("value"), email);
 
-        // Verificam parola introdusa.
-        Assert.assertEquals(loginPage.getPasswordValue(), data.getPassword());
+        WebElement passwordField = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='login-password']")));
 
-        // Verificam daca butonul Sign in este afisat.
-        Assert.assertTrue(loginPage.isSignInDisplayed());
+        passwordField.sendKeys(password);
 
-        // Verificam daca butonul Sign in poate fi apasat.
-        Assert.assertTrue(loginPage.isSignInEnabled());
+        Assert.assertEquals(passwordField.getAttribute("value"), password);
 
-        // Apasam butonul Sign in.
-        loginPage.clickSignIn();
+        WebElement signInButton = wait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='login-submit']")));
 
-        // Verificam mesajul afisat dupa Login.
-        Assert.assertEquals(loginPage.getSuccessMessage(), "Login Successful! Welcome to Premium Banking.");
+        Assert.assertTrue(signInButton.isDisplayed());
+        Assert.assertTrue(signInButton.isEnabled());
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", signInButton);
+
+        WebElement successMessage = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-testid='login-success']")));
+
+        Assert.assertEquals(successMessage.getText(), "Login Successful! Welcome to Premium Banking.");
     }
-
 }

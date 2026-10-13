@@ -14,20 +14,14 @@ public class XPathPracticeTest5 extends Test_Base_Page {
 
         XPathPracticePage xpathPracticePage = new XPathPracticePage(getDriver());
 
-        // Selectăm exercițiul 5
         xpathPracticePage.clickSelectCheckbox();
 
-        // XPath pentru checkbox-ul "I accept the terms"
         String xpathCheckbox = "//input[@id='terms']";
 
-        // Introducem XPath-ul
         xpathPracticePage.enterXPath(xpathCheckbox);
 
-        // Apăsăm Submit
         xpathPracticePage.clickSubmit();
 
-        // Verificăm dacă apare mesajul verde de succes
-        Assert.assertTrue(xpathPracticePage.isSuccessMessageDisplayed(), "Test eșuat: checkbox-ul I accept the terms nu a fost identificat corect.");
+        Assert.assertTrue(xpathPracticePage.isSuccessMessageDisplayed(), "Verificarea exercitiului Select Checkbox nu a fost confirmata.");
     }
 }
-

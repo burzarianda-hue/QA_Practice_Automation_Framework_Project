@@ -8,24 +8,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-// Această clasă conține metode reutilizabile pentru alertele Selenium.
 public class AlertMethods {
 
-    // Driver-ul controlează browserul.
     WebDriver driver;
-
-    // WebDriverWait este folosit pentru a aștepta apariția alertei.
     WebDriverWait wait;
 
 
-    // Constructorul primește driver-ul.
     public AlertMethods(WebDriver driver) {
 
         this.driver = driver;
     }
 
 
-    // Acceptă alerta apăsând butonul OK.
     public void alertOk() {
 
         Alert alertOk = driver.switchTo().alert();
@@ -34,7 +28,6 @@ public class AlertMethods {
     }
 
 
-    // Așteaptă apariția alertei pentru numărul de secunde primit.
     public void alertWithDelay(int seconds) {
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
@@ -45,7 +38,6 @@ public class AlertMethods {
     }
 
 
-    // Confirmă alerta.
     public void alertConfirm() {
 
         Alert alertConfirm = driver.switchTo().alert();
@@ -54,7 +46,6 @@ public class AlertMethods {
     }
 
 
-    // Anulează alerta apăsând Cancel.
     public void alertCancel() {
 
         Alert alertCancel = driver.switchTo().alert();
@@ -63,7 +54,6 @@ public class AlertMethods {
     }
 
 
-    // Introduce text într-o alertă de tip prompt și o confirmă.
     public void alertText(String value) {
 
         Alert alertText = driver.switchTo().alert();
